@@ -61,7 +61,7 @@ python summarizer.py
 
 Непредвиденные ошибки: Общий обработчик для непредвиденных ситуаций
 
-# Требования
+## Требования
 Python 3.6+
 
 transformers >= 4.0.0
@@ -77,13 +77,13 @@ re (входит в стандартную библиотеку Python)
 
 Качество суммаризации зависит от исходного текста
 
-# Пример работы
-Вход:
+## Пример работы
+# Вход:
 "Недавние исследования в области искусственного интеллекта показали значительный прогресс в обработке естественного языка.
 Трансформерные архитектуры, такие как BERT и GPT, revolutionized how machines understand human language.
 These advancements have led to improvements in machine translation, text summarization, and question-answering systems."
 
-Выход:
+# Выход:
 Краткое содержание:
 Recent research in artificial intelligence has shown significant progress in natural language processing.
 Transformer architectures like BERT and GPT have revolutionized how machines understand human language, leading to improvements in machine translation and text summarization.
