@@ -2,8 +2,21 @@ from transformers import pipeline
 import re
 from typing import Tuple, Optional
 def summarize(text: str) -> Tuple[str,int]:
-    #Создаёт краткое содержание научного текста(максимум 100 слов)
-    #Возвращает пару из сжатого текста и количества его слов
+    """
+    Создаёт краткое содержание научного текста (максимум 100 слов)
+    Возвращает пару из сжатого текста и количества его слов
+
+    Args:
+        text(str): Входной текст для суммаризации
+
+    Returns:
+        Tuple[str,int]: Кортеж из краткого содержания и количества слов
+
+    Raises:
+        ValueError: Если текст пустой, слишком короткий или содержит только пробелы
+        RuntimeError: Если произошла ошибка при загрузке модели или суммаризации
+        Exception: Для других непредвиденных ошибок
+    """
 
     try:
         if not text or not isinstance(text,str):
@@ -74,3 +87,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
