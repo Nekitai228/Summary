@@ -17,10 +17,11 @@
 
 ```bash
 pip install transformers torch
-
+```
 ## Использование
 
 # Простое использование
+```python
 from summarizer import summarize
 
 text = "Ваш научный текст здесь..."
@@ -29,10 +30,11 @@ summary, word_count = summarize(text)
 print("Краткое содержание:")
 print(summary)
 print(f"Количество слов: {word_count}")
-
+```
 ## Запуск скрипта
+```bash
 python summarizer.py
-
+```
 Затем введите текст для суммаризации.
 
 ## Параметры модели
