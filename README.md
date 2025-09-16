@@ -69,6 +69,7 @@ re (входит в стандартную библиотеку Python)
 "Недавние исследования в области искусственного интеллекта показали значительный прогресс в обработке естественного языка.
 Трансформерные архитектуры, такие как BERT и GPT, revolutionized how machines understand human language.
 These advancements have led to improvements in machine translation, text summarization, and question-answering systems."
+
 Выход:
 Краткое содержание:
 Recent research in artificial intelligence has shown significant progress in natural language processing.
