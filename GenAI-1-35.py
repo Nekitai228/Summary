@@ -1,7 +1,17 @@
 from transformers import pipeline
 import re
 from typing import Tuple, Optional
-def summarize(text: str) -> Tuple[str,int]:
+
+# Глобальные константы для параметров
+MODEL_NAME = "facebook/bart-large-cnn"
+MAX_SUMMARY_LENGTH = 100
+MIN_SUMMARY_LENGTH = 30
+MIN_INPUT_WORDS = 10
+
+# Глобальная переменная для модели (загружается один раз)
+summarizer = None
+
+def summarize(text: str) -> Tuple[str, int]:
     """
     Создаёт краткое содержание научного текста (максимум 100 слов)
     Возвращает пару из сжатого текста и количества его слов
@@ -19,37 +29,32 @@ def summarize(text: str) -> Tuple[str,int]:
     """
 
     try:
-        if not text or not isinstance(text,str):
+        if not text or not isinstance(text, str):
             raise ValueError("Текст не может быть пустым или не строкового типа")
-        #Инициализация модели
-        try:
-            summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-        except Exception as model_error:
-            raise RuntimeError(f"Ошибка загрузки модели: {model_error}")
-    
-        #Очистка текста от лишних пробелов
+        
+        # Очистка текста от лишних пробелов
         text_clean = re.sub(r'\s+', ' ', text).strip()
         if not text_clean:
             raise ValueError("Текст содержит только пробелы или пуст")
-        if len(text_clean.split()) < 10:
-            raise ValueError("Текст слишком короткий для суммаризации(минимум 10 слов)")
-    
-        #Суммаризация
+        
+        if len(text_clean.split()) < MIN_INPUT_WORDS:
+            raise ValueError(f"Текст слишком короткий для суммаризации (минимум {MIN_INPUT_WORDS} слов)")
+
+        # Суммаризация
         try:
             result = summarizer(
                 text_clean,
-                max_length=100,
-                min_length=30,
+                max_length=MAX_SUMMARY_LENGTH,
+                min_length=MIN_SUMMARY_LENGTH,
                 do_sample=False,
                 truncation=True
             )
         except Exception as summarization_error:
             raise RuntimeError(f"Ошибка во время суммаризации: {summarization_error}")
 
-    
-        #Получение и обрезка summary
+        # Получение и обрезка summary
         summary = result[0]['summary_text']
-        words = summary.split()[:100]
+        words = summary.split()[:MAX_SUMMARY_LENGTH]
         final_summary = ' '.join(words)
 
         return final_summary, len(words)
@@ -61,10 +66,20 @@ def summarize(text: str) -> Tuple[str,int]:
         # Обрабатываем непредвиденные ошибки
         raise Exception(f"Непредвиденная ошибка: {unexpected_error}")
 
-#Использование 
+# Использование 
 def main():
     """Основная функция для запуска скрипта"""
+    global summarizer
+    
     try:
+        # Загружаем модель один раз при запуске
+        try:
+            if summarizer is None:
+                summarizer = pipeline("summarization", model=MODEL_NAME)
+        except Exception as model_error:
+            raise RuntimeError(f"Ошибка загрузки модели: {model_error}")
+            print(f"Модель {MODEL_NAME} успешно загружена")
+        
         prompt = input("Введите текст для суммаризации: ")
         
         if not prompt.strip():
@@ -87,4 +102,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
