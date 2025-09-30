@@ -131,7 +131,7 @@ def main():
             print("Ошибка: Введен пустой текст")
             return
             
-        keywords = ['Нейросети', 'Обучение', 'Данные']
+        keywords = ['neural networks', 'training', 'data']
         
         
             
@@ -159,4 +159,5 @@ def main():
         print("\nПрограмма прервана пользователем")
 
 if __name__ == "__main__":
+
     main()
