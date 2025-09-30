@@ -1,4 +1,4 @@
-# Text Summarizer
+# Text Summarizer(Для GenAI-1-35)
 
 Модуль для автоматического создания кратких содержаний научных текстов с использованием модели машинного обучения.
 
@@ -92,3 +92,61 @@ Transformer architectures like BERT and GPT have revolutionized how machines und
 
 # Примечания
 Модель загружается при первом вызове функции summarize, что может занять некоторое время и потребовать значительных ресурсов памяти.
+
+
+
+
+
+
+# Text Summarizer with Keyword Annotation(Для GenAI-2-35
+
+Модуль для автоматического создания краткого содержания научных текстов с генерацией аннотаций, включающих заданные ключевые слова.
+
+## Описание
+
+Этот скрипт использует предобученную модель BART-large-CNN от Facebook для генерации сжатых версий научных текстов. Модель автоматически выделяет ключевые моменты исходного текста и создает краткое изложение. Дополнительная функция позволяет гарантировать включение заданных ключевых слов в итоговую аннотацию.
+
+## Особенности
+
+- **Автоматическая суммаризация** научных текстов на английском языке
+- **Генерация аннотаций** с обязательным включением ключевых слов
+- **Проверка наличия ключевых слов** в результирующем тексте
+- **Обработка ошибок** и валидация входных данных
+- **Ограничение длины** результата (до 100 слов)
+
+## Установка зависимостей
+
+```bash
+pip install transformers torch
+```
+
+## Использование
+# Основные функции
+Функция summarize(text: str) -> Tuple[str, int]
+Создает краткое содержание текста.
+```python
+from text_summarizer import summarize
+
+text = "Your scientific text here..."
+summary, word_count = summarize(text)
+
+print("Краткое содержание:")
+print(summary)
+print(f"Количество слов: {word_count}")
+```
+Функция generate_annotation_with_keywords(text: str, keywords: List[str]) -> Dict
+Генерирует аннотацию с обязательным включением ключевых слов.
+
+```python
+from text_summarizer import generate_annotation_with_keywords
+
+text = "Your research paper text..."
+keywords = ['neural networks', 'training', 'data']
+
+result = generate_annotation_with_keywords(text, keywords)
+
+print("Аннотация:", result['annotation'])
+print("Количество слов:", result['word_count'])
+print("Все ключевые слова присутствуют:", result['keywords_present'])
+```
+
