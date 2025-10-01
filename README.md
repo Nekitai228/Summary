@@ -98,7 +98,7 @@ Transformer architectures like BERT and GPT have revolutionized how machines und
 
 
 
-# Text Summarizer with Keyword Annotation(Для GenAI-2-35
+# Text Summarizer with Keyword Annotation(Для GenAI-2-35)
 
 Модуль для автоматического создания краткого содержания научных текстов с генерацией аннотаций, включающих заданные ключевые слова.
 
